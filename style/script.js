@@ -29,10 +29,15 @@ $(document).ready(function () {
       }, 600);
   });
 
+  // ====== SỬA PHẦN NÀY – KHÔNG LẶP NỮA ======
   function nextLyric() {
-      currentPage = currentPage < totalPages ? currentPage + 1 : 1;
-      updateActivePage();
+      if (currentPage < totalPages) {
+          currentPage++;
+          updateActivePage();
+      }
+      // Nếu đã ở trang cuối thì đứng im, không chạy tiếp
   }
+  // ==========================================
 
   function updateActivePage() {
       $(".lyric-page").removeClass("active");
@@ -73,6 +78,7 @@ resetBtn.addEventListener("click", function () {
     resetBtn.style.display = "none";
     playAudioOnce();
 });
+
 // ====== TẠO SAO NGẪU NHIÊN ======
 const starField = document.querySelector('.star-field');
 
@@ -92,24 +98,22 @@ for (let i = 0; i < 200; i++) {
 
     starField.appendChild(star);
 }
+
 // ====== HIỆU ỨNG BÔNG TUYẾT RƠI ======
 function createSnowflake() {
     const snow = document.createElement("div");
     snow.classList.add("snowflake");
     snow.textContent = "❄";
 
-    // Vị trí và tốc độ rơi ngẫu nhiên
     snow.style.left = Math.random() * 100 + "vw";
     snow.style.animationDuration = 5 + Math.random() * 5 + "s"; 
     snow.style.fontSize = (10 + Math.random() * 15) + "px"; 
 
     document.body.appendChild(snow);
 
-    // Xóa sau khi rơi xong
     setTimeout(() => {
         snow.remove();
     }, 10000);
 }
 
-// Tạo bông tuyết liên tục
 setInterval(createSnowflake, 150);
